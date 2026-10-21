@@ -1,10 +1,14 @@
+import { useState } from "react";
 import BoardFooter from "./BoardFooter";
 import BoardHeader from "./components/BoardHeader";
 import PostList from "./components/PostList";
 import "./style.css";
 
+
+/** useState 를 사용하면 추가한 것에 대한 랜더링을 다시해줌...실시간으로 뭔가를 해줌*/
+
 export default function App() {
-  const posts = [
+  const [posts, setPosts] = useState([
     {
       id: 1,
       title: "첫 번째 게시글",
@@ -19,7 +23,20 @@ export default function App() {
       createDatetime: "2026-10-04",
       content: "바나나",
     },
-  ];
+  ]);
+
+  function addPracticePost() {
+    const id = Date.now();
+    setPosts((currentPosts) => [
+      {
+        id,
+        title: `임시게시글 ${currentPosts.length}`,
+        authorNickname: "학생",
+        createDatetime: "2026-10-04",
+      },
+      ...currentPosts,
+    ]);
+  }
 
   return (
     <>
@@ -35,6 +52,9 @@ export default function App() {
         </button>
 
         <PostList posts={posts} onSelect={(post) => window.alert(post.title)} />
+        <button type="button" onClick={addPracticePost}>
+          게시글 추가
+        </button>
 
         <div className="pagination" aria-label="페이지 이동">
           <button id="previous-page" type="button" disabled>
