@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import AuthMenu from "./AuthMenu.jsx";
+import { useState } from "react";
 
 export default function BoardHeader() {
+  const [message, setMessage] = useState("");
   return (
     <header>
       <Link className="brand" to="/posts">
@@ -12,9 +14,11 @@ export default function BoardHeader() {
         <Link className="write-link" to="/posts/new">
           글쓰기
         </Link>
-        <AuthMenu />
+        <AuthMenu onStatus={setMessage} />
       </nav>
-      <p id="nav-message" role="status"></p>
+      <p id="nav-message" role="status">
+        {message}
+      </p>
     </header>
   );
 }
